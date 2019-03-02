@@ -1,0 +1,12 @@
+{
+  "main": "index.js",
+  "dependencies": {
+    "express": "4.16.4",
+    "mongoose": "5.4.4",
+    "bcryptjs": "2.4.3",
+    "moment": "2.23.0",
+    "express-session": "1.15.6",
+    "cors": "2.8.5",
+    "jsonwebtoken": "8.4.0"
+  }
+}
