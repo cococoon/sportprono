@@ -30,9 +30,6 @@ exports.create = (homeTeamId, awayTeamId, userId, tournamentId) => {
 
 }
 
-exports.editTeam = (newName, user) => {
-  
-}
 
 exports.editDate = (Date) => {
 

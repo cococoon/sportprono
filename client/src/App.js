@@ -1,8 +1,30 @@
-import { BrowserRouter, Route, NavLink, Switch, Redirect } from 'ReactRouterDOM';
-const BASEURL = 'https://sportsprono.cococoon.repl.co';
-const Router = BrowserRouter;
-const Link = NavLink;
+/**
+ * COMPONENT IMPORTS
+ */
+import { Route, Switch } from 'react-router-dom';
+import React from 'react';
+import axios from 'axios';
+import NavBar from './components/NavBar';
+import Footer from './components/Footer';
+import Home from './components/Home';
+import Login from './components/Login';
+import SignUp from './components/SignUp';
+import UserProfile from './components/UserProfile';
+import Tournament from './components/Tournament';
+import TournamentWizard from './components/TournamentWizard';
+import TeamWizard from './components/TeamWizard';
 
+/**
+ * STYLESHEET IMPORTS
+ */
+import './App.scss';
+import '../node_modules/@fortawesome/fontawesome-free/css/all.css'
+import '../node_modules/animate.css';
+import '../node_modules/normalize.css/normalize.css';
+
+/**
+ * App Component
+ */
 class App extends React.Component {
   constructor(props) {
     super();
@@ -25,16 +47,18 @@ class App extends React.Component {
           auth: true
         }
       });
-      //localstorage.setItem('token', response.data.token);
+      localStorage.setItem('token', response.data.token);
     })
   }
+
   handleLogout() {
     this.setState({
       user: null
     })
+    localStorage.removeItem('token');
   }
+
   handleSignup(username, password, email) {
-    let token;
     axios.post('https://sportsprono--cococoon.repl.co/user/register', {
       userName: username,
       password: password,
@@ -114,7 +138,18 @@ class App extends React.Component {
             render={
               (props) => {
                 return (
-                  <TournamentWizard token={this.state.user.token} {...props} />
+                  <TournamentWizard user={this.state.user} {...props} />
+                )
+              }
+            }
+          />
+          <Route
+            exact
+            path="/teamwizard"
+            render={
+              (props) => {
+                return (
+                  <TeamWizard user={this.state.user} {...props} />
                 )
               }
             }
