@@ -1,6 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-const Link = NavLink;
+import { NavLink as Link } from 'react-router-dom';
 
 export default class TournamentCard extends React.Component {
     constructor(props) {

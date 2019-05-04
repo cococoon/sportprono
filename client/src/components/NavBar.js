@@ -1,11 +1,10 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-const Link = NavLink;
+import { NavLink as Link } from 'react-router-dom';
 
 export default class NavBar extends React.Component {
     render() {
         let user = this.props.user;
-        if (!this.props.user || localStorage.getItem('token')) {
+        if (!this.props.user) {
             localStorage.getItem('token')
             return (
                 <React.Fragment>
@@ -21,15 +20,14 @@ export default class NavBar extends React.Component {
                 </React.Fragment>
             )
             //check if user is already logged in
-        } else if (this.props.user || localStorage.getItem('token')) {
-            console.log(localStorage.getItem('token'))
+        } else if (this.props.user) {
             return (
                 <React.Fragment>
                     <nav className="navbar">
                         <div className="navbar-content">
                             <Link style={{ textDecoration: 'none' }} to="/"><i className="logo fas fa-futbol"></i></Link>
                             <ul className="main-nav">
-                                <p>Welcome back <Link style={{ textDecoration: 'none' }} to={'profile/' + this.props.user.id}>{user.userName}</Link>!</p>
+                                <Link style={{ textDecoration: 'none' }} to={'/profile/' + this.props.user.id}><li className="navlink">My Profile</li></Link>
                                 <Link style={{ textDecoration: 'none' }} to="/createprono"><li className="navlink">Create Prono</li></Link>
                                 <Link style={{ textDecoration: 'none' }} to="/teamwizard"><li className="navlink">Add Teams</li></Link>
                                 <Link style={{ textDecoration: 'none' }} to="/" onClick={(e) => this.props.handleLogout()}><li className="loginbutton" >Log Out</li></Link>

@@ -13,6 +13,7 @@ import UserProfile from './components/UserProfile';
 import Tournament from './components/Tournament';
 import TournamentWizard from './components/TournamentWizard';
 import TeamWizard from './components/TeamWizard';
+import TournamentAdmin from './components/TournamentAdmin'
 
 /**
  * STYLESHEET IMPORTS
@@ -34,6 +35,30 @@ class App extends React.Component {
     this.handleSignup = this.handleSignup.bind(this);
   }
 
+  componentDidMount() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      axios({
+        url: `https://sportsprono--cococoon.repl.co/user/me`,
+        method: 'post',
+        headers: {
+          'x-access-token': token
+        },
+        responseType: 'json'
+      })
+        .then((response) => {
+          ; this.setState({
+            user: {
+              id: response.data.user._id,
+              userName: response.data.user.userName,
+              token: token,
+              auth: true
+            }
+          })
+        })
+    }
+  }
+
   handleLogin(username, password) {
     axios.post('https://sportsprono--cococoon.repl.co/user/login', {
       userName: username,
@@ -48,6 +73,8 @@ class App extends React.Component {
         }
       });
       localStorage.setItem('token', response.data.token);
+    }).catch(() => {
+      console.log('error signing in')
     })
   }
 
@@ -123,11 +150,11 @@ class App extends React.Component {
 
           <Route
             exact
-            path="/tournament/:id"
+            path="/tournament/:tournamentId"
             render={
               (props) => {
                 return (
-                  <Tournament {...props} />
+                  <TournamentAdmin user={this.state.user} {...props} />
                 )
               }
             }
@@ -145,7 +172,7 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/teamwizard"
+            path="/teamwizard/:tournamentId"
             render={
               (props) => {
                 return (

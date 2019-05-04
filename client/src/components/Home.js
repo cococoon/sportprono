@@ -6,6 +6,7 @@ import Main from './Main';
 import UserList from './UserList';
 import Hero from './Hero';
 import TextContainer from './TextContainer';
+import TournamentStage from './TournamentStage';
 
 export default class Home extends React.Component
 {

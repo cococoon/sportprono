@@ -88,6 +88,7 @@ export default class TournamentWizard extends React.Component {
         }).then(
             (res) => {
                 this.setState({
+                    tournament: res.data,
                     created: true
                 })
             }
@@ -143,7 +144,7 @@ export default class TournamentWizard extends React.Component {
             );
         } else {
             return (
-                <Redirect to="/teamwizard" />
+                <Redirect to={'/teamwizard/' + this.state.tournament.data._id} />
             )
         }
     }

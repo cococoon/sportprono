@@ -7,6 +7,7 @@ export default class TeamWizard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            tournament: this.props.match.params.tournamentId,
             teams: []
         };
         this.handleDelete = this.handleDelete.bind(this);
@@ -16,14 +17,16 @@ export default class TeamWizard extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSave() {
+    handleSave(e) {
+        e.preventDefault();
         this.state.teams.map((team) => {
+            console.log(this.state.tournament);
             axios({
-                url: `${BASEURL}/${this.props.tournamentId}/teams/${team.teamId}`,
+                url: `${BASEURL}/tournament/${this.state.tournament}/team/${team._id}`,
                 method: 'post',
                 data: {
                     teamId: team.teamId,
-                    tournamentId: this.props.tournamentId
+                    tournamentId: this.props.match.params.tournamentId
                 },
                 headers: {
                     'x-access-token': localStorage.getItem('token')
@@ -31,7 +34,7 @@ export default class TeamWizard extends React.Component {
                 responseType: 'json'
             }).then(
                 (res) => {
-                    // console.log(res.data);
+                    console.log(res.data);
                 }
             ).catch(
                 (error) => {
@@ -56,7 +59,6 @@ export default class TeamWizard extends React.Component {
         }).then(
             (res) => {
                 teams = [...this.state.teams, res.data.data];
-                console.log(teams);
                 this.setState({
                     teams: teams
                 })
@@ -98,7 +100,7 @@ export default class TeamWizard extends React.Component {
                 <div className="container">
                     <h3>Teamlist</h3>
                     <div className="buttons">
-                        <a onClick={(e) => this.handleSave(this.state.teams)} className="btn btn-green">Save</a>
+                        <a onClick={(e) => this.handleSave(e)} className="btn btn-green">Save</a>
                         <a onClick={(e) => this.handleReset()} className="btn btn-warning">Reset</a>
                     </div>
                     {

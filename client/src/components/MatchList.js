@@ -3,7 +3,9 @@ import React from 'react';
 export default class MatchList extends React.Component {
     render() {
         return (
-            <p>Matchlist</p>
+            <div className="container">
+                <p>Matchlist</p>
+            </div>
         )
     }
 }

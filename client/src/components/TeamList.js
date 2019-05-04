@@ -4,19 +4,21 @@ import axios from 'axios';
 export default class TeamList extends React.Component {
 
 	componentDidMount() {
-		axios.get(BASEURL + '/teams')
+		axios.get(BASEURL + '/team')
 			.then((response) => {
 				let [...data] = response.data.data;
 				this.setState({
 					isLoaded: true,
-					tournaments: data
+					teams: data
 				});
 			});
 	}
 
 	render() {
 		return (
-			<p>Teamlist</p>
+			<div className="container">
+				<p>Teamlist</p>
+			</div>
 		)
 	}
 }

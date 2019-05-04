@@ -1,8 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import Main from './Main';
+import Section from './Section';
 import MatchList from './MatchList';
 import TeamList from './TeamList';
+import TeamWizard from './TeamWizard';
 import Loader from './Loader.js';
 import BASEURL from '../config/api';
 
@@ -26,7 +28,6 @@ export default class Tournament extends React.Component {
     }
 
     render() {
-        console.log(this.state.tournament);
         // let startdate = new Date(this.state.tournament.startDate);
         // let enddate = new Date(this.state.tournament.endDate);
         if (!this.state.isLoaded) {
@@ -38,13 +39,15 @@ export default class Tournament extends React.Component {
         } else {
             return (
                 <Main>
-                    <article className="tournament">
+                    <Section>
+                        {/* <article className="tournament"> */}
                         <h1>{this.state.tournament.tournamentName}</h1>
                         {/* <h2>Startdate: {startdate} End date: {enddate}</h2> */}
                         <TeamList teams={this.state.tournament.teams} />
                         <MatchList matches={this.state.tournament.matches} />
-                    </article>
-                </Main>
+                        {/* </article> */}
+                    </Section>
+                </Main >
             )
         }
     }

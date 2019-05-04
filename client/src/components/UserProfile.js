@@ -44,7 +44,7 @@ export default class UserProfile extends React.Component {
                                 <p>{user.lastName ? user.lastName : 'no lastname'}</p>
                                 <h3>Contact</h3>
                                 <p className="profile-social">
-                                    <a href={'mailto:' + user.email}><i class="fas fa-envelope"></i></a>
+                                    <a href={'mailto:' + user.email}><i className="fas fa-envelope"></i></a>
                                     {facebook}
                                     {twitter}
                                     {linkedin}
